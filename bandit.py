@@ -26,6 +26,6 @@ for step in range(num_steps):
     Q[chosen_arm] += learning_rate * prediction_error
 
     # --- redraw progress on a single line, updated in place ---
-    print(f"\rstep {step + 1:>6} | Q = [{Q[0]:.4f}, {Q[1]:.4f}]", end="", flush=True)
+    print(f'\rstep {step + 1:>6} | Q = [{Q[0]:.4f}, {Q[1]:.4f}]', end='', flush=True)
 
 print()   # move to a new line once the loop finishes
