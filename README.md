@@ -24,3 +24,17 @@ python3 bandit.py
 
 The program prints a single line, updated in place, showing the current
 iteration and the current `Q` estimates for both arms.
+
+### RL concepts in this example
+
+- **State** — a bandit has no state: every pull is identical to the last,
+  with no notion of "where" the agent is or how it got there. This is what
+  makes a bandit the simplest possible RL setting, as opposed to a full MDP
+  where the state changes based on past actions.
+- **Action** — `chosen_arm`, i.e. which of the two arms to pull (0 or 1).
+- **Reward** — the outcome of a single pull: 1 for a win, 0 for a loss,
+  sampled according to the arm's hidden true win probability (`true_p`).
+- **Policy** — the rule that maps the current `Q` estimates to an action:
+  epsilon-greedy, meaning pull the arm with the highest `Q` estimate most of
+  the time (exploit), but pull a random arm with probability `epsilon`
+  (explore).
