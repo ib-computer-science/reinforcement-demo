@@ -56,11 +56,9 @@ filldraw(circle((1.0, 1.15), 0.17), black, black);
 // --- sly cartoon grin ---
 draw((-0.9, 0.2)..(0, -0.15)..(0.9, 0.2), black + linewidth(2.5));
 
-// --- screen with two reel windows (one per "arm") ---
+// --- screen with two reels, each showing both of its possible outcomes ---
 filldraw(roundedrect((-2.4, -3.6), (2.4, -0.4), 0.3), screenNavy, black + linewidth(1.5));
 
-// left reel: a star
-filldraw(circle((-1.1, -2), 0.75), white, black + linewidth(1.2));
 path star(pair c, real rOuter, real rInner) {
     path p;
     for (int i = 0; i < 10; ++i) {
@@ -71,12 +69,36 @@ path star(pair c, real rOuter, real rInner) {
     }
     return p--cycle;
 }
-filldraw(star((-1.1, -2), 0.5, 0.2), gold, goldDark + linewidth(1));
 
-// right reel: a coin ("$")
-filldraw(circle((1.1, -2), 0.75), white, black + linewidth(1.2));
-filldraw(circle((1.1, -2), 0.5), gold, goldDark + linewidth(1));
-label("$\$$", (1.1, -2), fontsize(16pt) + goldDark);
+pen reelGray = rgb(0.75, 0.75, 0.75);
+
+// A reel is a pill-shaped drum split into a "win" face (top) and a "lose"
+// face (bottom) by a dividing line, with faint curved bands hinting that
+// it's a revolving cylinder rather than a flat window.
+void drawReel(pair c, real w, real h) {
+    path shell = roundedrect(c - (w / 2, h / 2), c + (w / 2, h / 2), w / 2);
+    filldraw(shell, white, black + linewidth(1.2));
+    draw((c.x - w / 2 + 0.05, c.y)--(c.x + w / 2 - 0.05, c.y), gray(0.4) + linewidth(1));
+    draw((c.x - w / 2 + 0.1, c.y + h / 4)..(c.x, c.y + h / 4 - 0.06)..(c.x + w / 2 - 0.1, c.y + h / 4), reelGray + linewidth(0.7));
+    draw((c.x - w / 2 + 0.1, c.y - h / 4)..(c.x, c.y - h / 4 - 0.06)..(c.x + w / 2 - 0.1, c.y - h / 4), reelGray + linewidth(0.7));
+}
+
+real reelW = 1.3;
+real reelH = 2.0;
+pair leftReel = (-1.1, -2);
+pair rightReel = (1.1, -2);
+
+drawReel(leftReel, reelW, reelH);
+drawReel(rightReel, reelW, reelH);
+
+// win faces, top half
+filldraw(star(leftReel + (0, reelH / 4), 0.32, 0.13), gold, goldDark + linewidth(0.8));
+filldraw(circle(rightReel + (0, reelH / 4), 0.32), gold, goldDark + linewidth(0.8));
+label("$\$$", rightReel + (0, reelH / 4), fontsize(11pt) + goldDark);
+
+// lose faces, bottom half: muted and blank
+filldraw(circle(leftReel - (0, reelH / 4), 0.28), reelGray, gray(0.4) + linewidth(0.8));
+filldraw(circle(rightReel - (0, reelH / 4), 0.28), reelGray, gray(0.4) + linewidth(0.8));
 
 // --- coin slot ---
 filldraw(roundedrect((-0.5, -4.6), (0.5, -4.2), 0.1), screenNavy, black + linewidth(1));
