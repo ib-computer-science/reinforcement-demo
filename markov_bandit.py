@@ -10,6 +10,7 @@ Q = [[0.0, 0.0], [0.0, 0.0]]                # Q[state][arm]
 times_chosen = [[0, 0], [0, 0]]             # how many times each (state, arm) pair was chosen
 
 state = 0   # start fresh
+total_reward = 0
 
 for step in range(num_steps):
     # --- choose an action in the current state: explore randomly, or exploit the current best guess,
@@ -34,8 +35,7 @@ for step in range(num_steps):
     Q[state][chosen_arm] += learning_rate * prediction_error
 
     state = next_state
+    total_reward += reward
 
-    # --- redraw progress on a single line, updated in place ---
-    print(f'\rstep {step + 1:>6} | state {state} | Q = [{Q[0][0]:.4f}, {Q[0][1]:.4f}] / [{Q[1][0]:.4f}, {Q[1][1]:.4f}]', end='', flush=True)
-
-print()   # move to a new line once the loop finishes
+print(f'Played {num_steps} rounds, total reward {total_reward} '
+      f'(average {total_reward / num_steps:.3f} per round).')

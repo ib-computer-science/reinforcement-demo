@@ -86,10 +86,11 @@ python3 markov_bandit.py
 ## play_bandit.py
 
 Lets a human play the same environment from `bandit_env.py` interactively:
-each round shows the current state, you type `0` or `1` to pull an arm, and
-it reports whether you won. Like the Q-learning agent, you aren't shown the
-win probabilities while playing — only revealed in the summary after you
-quit (`q`) — so you have to find a good strategy by trial and error too.
+type `l` or `r` to pull an arm, and it reports `win!` or `no win`. Like the
+Q-learning agent, you aren't shown the current state or the win
+probabilities, during play or after — only your total and average reward
+once you quit (empty input) — so you have to find a good strategy by trial
+and error too.
 
 Run it with:
 
