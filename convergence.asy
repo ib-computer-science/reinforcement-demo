@@ -17,8 +17,8 @@ real[] yref05 = {0.05, 0.05};
 draw(graph(xref, yref95), gray + dashed);
 draw(graph(xref, yref05), gray + dashed);
 
-draw(graph(step, p_state0), blue + linewidth(1.2), "P(pull arm 1 | state 0)");
-draw(graph(step, p_state1), red + linewidth(1.2), "P(pull arm 1 | state 1)");
+draw(graph(step, p_state0), blue + linewidth(1.2), "$P(\mathrm{arm}=1 \mid \mathrm{state}=0)$");
+draw(graph(step, p_state1), red + linewidth(1.2), "$P(\mathrm{arm}=1 \mid \mathrm{state}=1)$");
 
 ylimits(0, 1);
 
