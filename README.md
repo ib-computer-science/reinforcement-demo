@@ -5,7 +5,7 @@ A minimal, self-contained reinforcement learning toy example.
 ## bandit_env.py
 
 The environment shared by `q_learn_bandit.py`, `play_bandit.py`, and
-`convergence.py`: the `true_p` table and the `pull(state, arm)` function
+`q_learn_convergence.py`: the `true_p` table and the `pull(state, arm)` function
 (reward + next state for pulling an arm in a state). Factored out so all
 three simulate the exact same dynamics instead of each keeping their own
 copy.
@@ -60,30 +60,31 @@ Run it with:
 python3 play_bandit.py
 ```
 
-## convergence.py + convergence.asy
+## q_learn_convergence.py + q_learn_convergence.asy
 
 Visualizes how the agent's *behavior* converges during training in
 `q_learn_bandit.py` — not the abstract `Q` values, but what the agent
 actually does, including the ongoing exploration.
 
-`convergence.py` reruns the same simulation `num_runs` times (independent
-random seeds) and, every `bin_size` steps, tallies how often arm 1 was
-pulled in each state across *all* runs, writing the aggregate empirical
-probability to `convergence.dat` (columns: `step p(arm1|state0)
-p(arm1|state1)`). A single run's per-bin counts are too small to give a
-smooth curve — averaging over many runs is what makes the plot readable
-without needing a longer or shorter run. `convergence.asy` plots the two
-probabilities against training step, starting near 0.5 (a genuine coin toss,
-since both arms tie at `Q = 0` initially) and converging to plateaus near
-0.95 and 0.05 rather than 1.0 and 0.0 — the gap from the extremes is the
-fixed `epsilon = 0.1` still picking a uniformly random arm 10% of the time
-even after the policy has converged.
+`q_learn_convergence.py` reruns the same simulation `num_runs` times
+(independent random seeds) and, every `bin_size` steps, tallies how often
+arm 1 was pulled in each state across *all* runs, writing the aggregate
+empirical probability to `q_learn_convergence.dat` (columns: `step
+p(arm1|state0) p(arm1|state1)`). A single run's per-bin counts are too
+small to give a smooth curve — averaging over many runs is what makes the
+plot readable without needing a longer or shorter run.
+`q_learn_convergence.asy` plots the two probabilities against training
+step, starting near 0.5 (a genuine coin toss, since both arms tie at `Q =
+0` initially) and converging to plateaus near 0.95 and 0.05 rather than
+1.0 and 0.0 — the gap from the extremes is the fixed `epsilon = 0.1` still
+picking a uniformly random arm 10% of the time even after the policy has
+converged.
 
 Run it with:
 
 ```
-python3 convergence.py
-asy -f pdf convergence.asy
+python3 q_learn_convergence.py
+asy -f pdf q_learn_convergence.asy
 ```
 
 ## two_armed_bandit.asy

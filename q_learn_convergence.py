@@ -51,11 +51,11 @@ for run in range(num_runs):
             bin_index += 1
             counts = [[0, 0], [0, 0]]
 
-with open('convergence.dat', 'w') as f:
+with open('q_learn_convergence.dat', 'w') as f:
     for bin_index, (state0, state1) in enumerate(accum):
         step = (bin_index + 1) * bin_size
         p0 = state0[1] / state0[0] if state0[0] else 0.0
         p1 = state1[1] / state1[0] if state1[0] else 0.0
         f.write(f'{step} {p0:.4f} {p1:.4f}\n')
 
-print(f'wrote {num_bins} data points to convergence.dat, each averaged over {num_runs} runs')
+print(f'wrote {num_bins} data points to q_learn_convergence.dat, each averaged over {num_runs} runs')

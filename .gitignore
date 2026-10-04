@@ -1,4 +1,4 @@
 __pycache__/
-convergence.dat
+q_learn_convergence.dat
 *.pdf
 /.agent-shell/

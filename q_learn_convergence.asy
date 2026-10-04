@@ -2,7 +2,7 @@ import graph;
 
 size(400, 250, IgnoreAspect);
 
-file in = input("convergence.dat").line();
+file in = input("q_learn_convergence.dat").line();
 real[][] data = in.dimension(0, 0);
 data = transpose(data);
 real[] step = data[0];
