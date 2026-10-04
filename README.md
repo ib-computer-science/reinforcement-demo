@@ -41,11 +41,11 @@ iteration and the current `Q` estimates for both arms.
 
 ## bandit_env.py
 
-The environment shared by `q_learn_bandit.py` and `play_bandit.py`: the
-`true_p` table and the `pull(state, arm)` function (reward + next state for
-pulling an arm in a state). Factored out so the Q-learning demo and the
-human-playable version simulate the exact same dynamics instead of each
-keeping their own copy.
+The environment shared by `q_learn_bandit.py`, `play_bandit.py`, and
+`convergence.py`: the `true_p` table and the `pull(state, arm)` function
+(reward + next state for pulling an arm in a state). Factored out so all
+three simulate the exact same dynamics instead of each keeping their own
+copy.
 
 ## q_learn_bandit.py
 

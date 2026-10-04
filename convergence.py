@@ -1,15 +1,12 @@
 import random
 
+from bandit_env import pull
+
 epsilon = 0.1
 num_steps = 50000
 gamma = 0.9
 bin_size = 500          # steps per data point within a run
 num_runs = 500          # independent runs averaged together to smooth out per-bin sampling noise
-
-true_p = [
-    [0.5, 0.9],   # state 0 ("fresh"):    arm 0 = 0.5, arm 1 = 0.9
-    [0.5, 0.1],   # state 1 ("depleted"): arm 0 = 0.5, arm 1 = 0.1
-]
 
 num_bins = num_steps // bin_size
 # accum[bin][state] = [times in this state this bin, times arm 1 was pulled in this state this bin],
@@ -36,10 +33,7 @@ for run in range(num_runs):
         if chosen_arm == 1:
             counts[state][1] += 1
 
-        win_roll = random.random()
-        reward = 1 if win_roll < true_p[state][chosen_arm] else 0
-
-        next_state = 1 if chosen_arm == 1 else 0
+        reward, next_state = pull(state, chosen_arm)
 
         times_chosen[state][chosen_arm] += 1
         learning_rate = 1 / times_chosen[state][chosen_arm]
