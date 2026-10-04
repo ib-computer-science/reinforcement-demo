@@ -40,6 +40,11 @@ filldraw(circle((4.3, 4.8), 0.55), gold, goldDark + linewidth(1.5));
 // --- main cabinet body ---
 filldraw(roundedrect((-3, -5.3), (3, 3), 0.5), cabinetRed, black + linewidth(2));
 
+// --- mask cord: continues from the band's sides and disappears behind the
+//     cabinet's edge, as if tied around the back ---
+draw((-2.4, 1.15)--(-3, 1.15), black + linewidth(4));
+draw((2.4, 1.15)--(3, 1.15), black + linewidth(4));
+
 // --- face: eye mask band ---
 filldraw((-2.4, 1.55)--(2.4, 1.55)--(2.4, 0.75)--(-2.4, 0.75)--cycle, black, black);
 
