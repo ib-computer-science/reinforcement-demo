@@ -41,13 +41,13 @@ iteration and the current `Q` estimates for both arms.
 
 ## bandit_env.py
 
-The environment shared by `markov_bandit.py` and `play_bandit.py`: the
+The environment shared by `q_learn_bandit.py` and `play_bandit.py`: the
 `true_p` table and the `pull(state, arm)` function (reward + next state for
 pulling an arm in a state). Factored out so the Q-learning demo and the
 human-playable version simulate the exact same dynamics instead of each
 keeping their own copy.
 
-## markov_bandit.py
+## q_learn_bandit.py
 
 A minimal step up from the stateless bandit: there are now two **states**,
 and pulling an arm deterministically decides the *next* state — satisfying
@@ -80,7 +80,7 @@ so the very first decision in an unvisited state is a genuine coin toss.
 Run it with:
 
 ```
-python3 markov_bandit.py
+python3 q_learn_bandit.py
 ```
 
 ## play_bandit.py
@@ -101,7 +101,7 @@ python3 play_bandit.py
 ## convergence.py + convergence.asy
 
 Visualizes how the agent's *behavior* converges during training in
-`markov_bandit.py` — not the abstract `Q` values, but what the agent
+`q_learn_bandit.py` — not the abstract `Q` values, but what the agent
 actually does, including the ongoing exploration.
 
 `convergence.py` reruns the same simulation `num_runs` times (independent
