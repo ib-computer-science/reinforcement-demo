@@ -42,8 +42,11 @@ for step in range(num_steps):
     state = next_state
     total_reward += reward
 
-    # --- redraw the Q-table on a single line, updated in place ---
-    print(f'\rstep {step + 1:>6} | Q = [{Q[0][0]:.2f}, {Q[0][1]:.2f}] / [{Q[1][0]:.2f}, {Q[1][1]:.2f}]', end='', flush=True)
+    # --- redraw the current greedy policy on a single line, updated in place: state 0 means the
+    #     last arm pulled was left (or the game just started), state 1 means it was right ---
+    greedy_after_left = 'l' if Q[0][0] >= Q[0][1] else 'r'
+    greedy_after_right = 'l' if Q[1][0] >= Q[1][1] else 'r'
+    print(f'\rstep {step + 1:>6} | select {greedy_after_left} after left, select {greedy_after_right} after right', end='', flush=True)
 
 print()   # move to a new line once the loop finishes
 print(f'Played {num_steps} rounds, total reward {total_reward} '
