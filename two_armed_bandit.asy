@@ -40,10 +40,6 @@ filldraw(circle((4.3, 4.8), 0.55), gold, goldDark + linewidth(1.5));
 // --- main cabinet body ---
 filldraw(roundedrect((-3, -5.3), (3, 3), 0.5), cabinetRed, black + linewidth(2));
 
-// --- gold header with marquee text ---
-filldraw(roundedrect((-2.6, 3.3), (2.6, 4.6), 0.4), gold, goldDark + linewidth(1.5));
-label("$BANDIT$", (0, 3.95), fontsize(22pt) + cabinetDark);
-
 // --- face: eye mask band ---
 filldraw((-2.4, 1.55)--(2.4, 1.55)--(2.4, 0.75)--(-2.4, 0.75)--cycle, black, black);
 
@@ -58,17 +54,6 @@ draw((-0.9, 0.2)..(0, -0.15)..(0.9, 0.2), black + linewidth(2.5));
 
 // --- screen with two reels, each showing both of its possible outcomes ---
 filldraw(roundedrect((-2.4, -3.6), (2.4, -0.4), 0.3), screenNavy, black + linewidth(1.5));
-
-path star(pair c, real rOuter, real rInner) {
-    path p;
-    for (int i = 0; i < 10; ++i) {
-        real ang = 90 + i * 36;
-        real rad = (i % 2 == 0) ? rOuter : rInner;
-        pair pt = c + rad * dir(ang);
-        p = (i == 0) ? pt : p--pt;
-    }
-    return p--cycle;
-}
 
 pen reelGray = rgb(0.75, 0.75, 0.75);
 
@@ -91,8 +76,10 @@ pair rightReel = (1.1, -2);
 drawReel(leftReel, reelW, reelH);
 drawReel(rightReel, reelW, reelH);
 
-// win faces, top half
-filldraw(star(leftReel + (0, reelH / 4), 0.32, 0.13), gold, goldDark + linewidth(0.8));
+// win faces, top half: the same symbol on both reels, since a "win" is the
+// same kind of outcome on either arm — only its probability differs
+filldraw(circle(leftReel + (0, reelH / 4), 0.32), gold, goldDark + linewidth(0.8));
+label("$\$$", leftReel + (0, reelH / 4), fontsize(11pt) + goldDark);
 filldraw(circle(rightReel + (0, reelH / 4), 0.32), gold, goldDark + linewidth(0.8));
 label("$\$$", rightReel + (0, reelH / 4), fontsize(11pt) + goldDark);
 
