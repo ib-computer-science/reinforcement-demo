@@ -100,3 +100,19 @@ Run it with:
 python3 convergence.py
 asy -f pdf convergence.asy
 ```
+
+## two_armed_bandit.asy
+
+A purely decorative cartoon drawing of a two-armed bandit (slot machine) —
+a masked cabinet with two side levers and two reel windows, one per arm.
+No simulation logic, just a fun illustration to go with the name of the
+repo.
+
+The background is controlled by `pen backgroundColor`, set to `black` by
+default; override it before that line to change it.
+
+Run it with:
+
+```
+asy -f pdf two_armed_bandit.asy
+```
