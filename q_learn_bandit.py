@@ -2,9 +2,11 @@ import random
 
 from bandit_env import pull
 
-epsilon = 0.1               # probability of exploring instead of exploiting
+epsilon = 0.1                # probability of exploring instead of exploiting
 num_steps = 100000
-gamma = 0.9                 # discount factor: how much future reward matters now
+gamma = 0.9                  # discount factor: how much future reward matters now
+alpha0 = 0.05                # starting learning rate for each (state, arm) pair
+decay_steps = 1000           # learning rate roughly halves every this many visits to a pair
 
 Q = [[0.0, 0.0], [0.0, 0.0]]                # Q[state][arm]
 times_chosen = [[0, 0], [0, 0]]             # how many times each (state, arm) pair was chosen
@@ -27,9 +29,12 @@ for step in range(num_steps):
     reward, next_state = pull(state, chosen_arm)
 
     # --- update our value estimate for the chosen (state, arm) pair via the Q-learning TD update:
-    #     bootstrap off the best value achievable from the next state, discounted by gamma ---
+    #     bootstrap off the best value achievable from the next state, discounted by gamma. The
+    #     learning rate starts at alpha0 (fast movement) and decays toward 0 as a pair accumulates
+    #     visits (so the estimate settles instead of jittering forever), but decays much more
+    #     gently than a plain 1/n schedule would. ---
     times_chosen[state][chosen_arm] += 1
-    learning_rate = 1 / times_chosen[state][chosen_arm]
+    learning_rate = alpha0 * decay_steps / (decay_steps + times_chosen[state][chosen_arm])
     td_target = reward + gamma * max(Q[next_state])
     prediction_error = td_target - Q[state][chosen_arm]
     Q[state][chosen_arm] += learning_rate * prediction_error
@@ -37,5 +42,9 @@ for step in range(num_steps):
     state = next_state
     total_reward += reward
 
+    # --- redraw the Q-table on a single line, updated in place ---
+    print(f'\rstep {step + 1:>6} | Q = [{Q[0][0]:.2f}, {Q[0][1]:.2f}] / [{Q[1][0]:.2f}, {Q[1][1]:.2f}]', end='', flush=True)
+
+print()   # move to a new line once the loop finishes
 print(f'Played {num_steps} rounds, total reward {total_reward} '
       f'(average {total_reward / num_steps:.3f} per round).')

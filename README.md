@@ -39,6 +39,21 @@ policy it converges to. Ties in `Q[state]` (as at the very start, when
 everything is `0.0`) are broken randomly rather than always favoring arm 0,
 so the very first decision in an unvisited state is a genuine coin toss.
 
+The learning rate for each `(state, arm)` pair starts at `alpha0` and decays
+as `alpha0 * decay_steps / (decay_steps + times_chosen[state][arm])` — much
+more gently than a plain `1 / times_chosen` schedule, which technically
+guarantees exact convergence but does so so slowly (it weights every
+historical sample equally) that the printed `Q` table is still visibly far
+from its true fixed point after a million steps. This schedule reaches the
+fixed point within a few thousand steps and keeps settling from there,
+rather than either crawling for a million steps (`1 / times_chosen`) or
+jittering around it forever (a flat constant rate). Either way, the
+*policy* converges almost immediately regardless of the learning-rate
+schedule — it only needs the relative order of `Q[state][0]` vs
+`Q[state][1]` to be right, not their precise values — so this only changes
+how quickly the printed numbers look settled, not how good the agent's
+decisions are.
+
 Run it with:
 
 ```
