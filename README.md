@@ -38,3 +38,37 @@ iteration and the current `Q` estimates for both arms.
   epsilon-greedy, meaning pull the arm with the highest `Q` estimate most of
   the time (exploit), but pull a random arm with probability `epsilon`
   (explore).
+
+## markov_bandit.py
+
+A minimal step up from the stateless bandit: there are now two **states**,
+and pulling an arm deterministically decides the *next* state — satisfying
+the Markov property, since the next state depends only on the current state
+and action, never on history.
+
+- State 0 ("fresh"): arm 0 wins with probability 0.5, arm 1 wins with
+  probability 0.9.
+- State 1 ("depleted"): arm 0 still wins with probability 0.5, but arm 1's
+  win probability has crashed to 0.1.
+- Pulling arm 1 deterministically moves to state 1 (it depletes itself);
+  pulling arm 0 deterministically moves to state 0 (it lets arm 1 recover).
+
+Because actions now have delayed consequences, a plain reward-average `Q`
+(as in `bandit.py`) can't tell arm 0 and arm 1 apart — both average 0.5
+reward over time. Instead this uses the real Q-learning update:
+
+```
+Q[state][arm] += learning_rate * (reward + gamma * max(Q[next_state]) - Q[state][arm])
+```
+
+which bootstraps off the best value achievable from the next state,
+discounted by `gamma`. This lets the agent discover that *alternating* arms
+(pull arm 1 while fresh, arm 0 while depleted) earns ~0.7 average reward per
+round — better than sticking to either arm alone — which is exactly the
+policy it converges to.
+
+Run it with:
+
+```
+python3 markov_bandit.py
+```
