@@ -65,10 +65,38 @@ which bootstraps off the best value achievable from the next state,
 discounted by `gamma`. This lets the agent discover that *alternating* arms
 (pull arm 1 while fresh, arm 0 while depleted) earns ~0.7 average reward per
 round — better than sticking to either arm alone — which is exactly the
-policy it converges to.
+policy it converges to. Ties in `Q[state]` (as at the very start, when
+everything is `0.0`) are broken randomly rather than always favoring arm 0,
+so the very first decision in an unvisited state is a genuine coin toss.
 
 Run it with:
 
 ```
 python3 markov_bandit.py
+```
+
+## convergence.py + convergence.asy
+
+Visualizes how the agent's *behavior* converges during training in
+`markov_bandit.py` — not the abstract `Q` values, but what the agent
+actually does, including the ongoing exploration.
+
+`convergence.py` reruns the same simulation `num_runs` times (independent
+random seeds) and, every `bin_size` steps, tallies how often arm 1 was
+pulled in each state across *all* runs, writing the aggregate empirical
+probability to `convergence.dat` (columns: `step p(arm1|state0)
+p(arm1|state1)`). A single run's per-bin counts are too small to give a
+smooth curve — averaging over many runs is what makes the plot readable
+without needing a longer or shorter run. `convergence.asy` plots the two
+probabilities against training step, starting near 0.5 (a genuine coin toss,
+since both arms tie at `Q = 0` initially) and converging to plateaus near
+0.95 and 0.05 rather than 1.0 and 0.0 — the gap from the extremes is the
+fixed `epsilon = 0.1` still picking a uniformly random arm 10% of the time
+even after the policy has converged.
+
+Run it with:
+
+```
+python3 convergence.py
+asy -f pdf convergence.asy
 ```

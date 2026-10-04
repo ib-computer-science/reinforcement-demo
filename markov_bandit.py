@@ -19,12 +19,15 @@ times_chosen = [[0, 0], [0, 0]]             # how many times each (state, arm) p
 state = 0   # start fresh
 
 for step in range(num_steps):
-    # --- choose an action in the current state: explore randomly, or exploit the current best guess ---
+    # --- choose an action in the current state: explore randomly, or exploit the current best guess,
+    #     breaking ties randomly (all-zero Q at the start should look like a coin toss, not a fixed pick) ---
     should_explore = random.random() < epsilon
     if should_explore:
         chosen_arm = random.randrange(2)
     else:
-        chosen_arm = Q[state].index(max(Q[state]))
+        best_value = max(Q[state])
+        best_arms = [arm for arm, value in enumerate(Q[state]) if value == best_value]
+        chosen_arm = random.choice(best_arms)
 
     # --- pull the arm and observe a reward (1 = win, 0 = no win), given the current state ---
     win_roll = random.random()
