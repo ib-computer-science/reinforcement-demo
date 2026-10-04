@@ -39,6 +39,14 @@ iteration and the current `Q` estimates for both arms.
   the time (exploit), but pull a random arm with probability `epsilon`
   (explore).
 
+## bandit_env.py
+
+The environment shared by `markov_bandit.py` and `play_bandit.py`: the
+`true_p` table and the `pull(state, arm)` function (reward + next state for
+pulling an arm in a state). Factored out so the Q-learning demo and the
+human-playable version simulate the exact same dynamics instead of each
+keeping their own copy.
+
 ## markov_bandit.py
 
 A minimal step up from the stateless bandit: there are now two **states**,
@@ -73,6 +81,20 @@ Run it with:
 
 ```
 python3 markov_bandit.py
+```
+
+## play_bandit.py
+
+Lets a human play the same environment from `bandit_env.py` interactively:
+each round shows the current state, you type `0` or `1` to pull an arm, and
+it reports whether you won. Like the Q-learning agent, you aren't shown the
+win probabilities while playing — only revealed in the summary after you
+quit (`q`) — so you have to find a good strategy by trial and error too.
+
+Run it with:
+
+```
+python3 play_bandit.py
 ```
 
 ## convergence.py + convergence.asy
