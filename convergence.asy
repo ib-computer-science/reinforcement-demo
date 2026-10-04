@@ -20,9 +20,9 @@ draw(graph(xref, yref05), gray + dashed);
 draw(graph(step, p_state0), blue + linewidth(1.2), "P(pull arm 1 | state 0)");
 draw(graph(step, p_state1), red + linewidth(1.2), "P(pull arm 1 | state 1)");
 
+ylimits(0, 1);
+
 xaxis("training step", BottomTop, LeftTicks);
 yaxis("P(pull arm 1)", LeftRight, RightTicks);
-
-ylimits(0, 1);
 
 add(legend(), point(E), 20 * E, UnFill);

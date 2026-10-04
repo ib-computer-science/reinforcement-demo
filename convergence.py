@@ -4,7 +4,7 @@ epsilon = 0.1
 num_steps = 50000
 gamma = 0.9
 bin_size = 500          # steps per data point within a run
-num_runs = 200          # independent runs averaged together to smooth out per-bin sampling noise
+num_runs = 1000         # independent runs averaged together to smooth out per-bin sampling noise
 
 true_p = [
     [0.5, 0.9],   # state 0 ("fresh"):    arm 0 = 0.5, arm 1 = 0.9
