@@ -2,6 +2,9 @@ import graph;
 
 size(400, 250, IgnoreAspect);
 
+pen bg = black;   // background fill; override before this point to change it
+pen fg = white;   // axes, labels, and legend text/border
+
 file in = input("q_learn_convergence.dat").line();
 real[][] data = in.dimension(0, 0);
 data = transpose(data);
@@ -22,7 +25,9 @@ draw(graph(step, p_prev_r), red + linewidth(1.2), "$P(\mathrm{pull\ R} \mid \mat
 
 ylimits(0, 1);
 
-xaxis("training step", BottomTop, LeftTicks);
-yaxis("P(pull R)", LeftRight, RightTicks);
+xaxis("training step", BottomTop, LeftTicks, p=fg);
+yaxis("P(pull R)", LeftRight, RightTicks, p=fg);
 
-add(legend(), point(E), 20 * E, UnFill);
+add(legend(p=fg), point(E), 20 * E, UnFill);
+
+shipout(bbox(currentpicture, 3mm, p=bg, filltype=Fill));
