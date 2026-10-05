@@ -3,11 +3,11 @@ import random
 from bandit_env import pull
 
 epsilon = 0.1
-num_steps = 50000
+num_steps = 10000
 gamma = 0.9
 alpha0 = 0.05           # starting learning rate for each (state, arm) pair
 decay_steps = 1000      # learning rate roughly halves every this many visits to a pair
-bin_size = 500          # steps per data point within a run
+bin_size = 20           # steps per data point within a run
 num_runs = 500          # independent runs averaged together to smooth out per-bin sampling noise
 
 num_bins = num_steps // bin_size
