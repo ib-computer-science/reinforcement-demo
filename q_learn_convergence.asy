@@ -17,12 +17,12 @@ real[] yref05 = {0.05, 0.05};
 draw(graph(xref, yref95), gray + dashed);
 draw(graph(xref, yref05), gray + dashed);
 
-draw(graph(step, p_prev_l), blue + linewidth(1.2), "$P(\mathrm{pull\ r} \mid \mathrm{prev}=\mathrm{l})$");
-draw(graph(step, p_prev_r), red + linewidth(1.2), "$P(\mathrm{pull\ r} \mid \mathrm{prev}=\mathrm{r})$");
+draw(graph(step, p_prev_l), blue + linewidth(1.2), "$P(\mathrm{pull\ R} \mid \mathrm{prev}=\mathrm{L})$");
+draw(graph(step, p_prev_r), red + linewidth(1.2), "$P(\mathrm{pull\ R} \mid \mathrm{prev}=\mathrm{R})$");
 
 ylimits(0, 1);
 
 xaxis("training step", BottomTop, LeftTicks);
-yaxis("P(pull r)", LeftRight, RightTicks);
+yaxis("P(pull R)", LeftRight, RightTicks);
 
 add(legend(), point(E), 20 * E, UnFill);

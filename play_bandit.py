@@ -5,15 +5,15 @@ round_number = 0
 total_reward = 0
 
 while True:
-    choice = input('pull arm (l/r)? ').strip().lower()
+    choice = input('pull arm (L/R)? ').strip().upper()
 
     if choice == '':
         break
-    if choice not in ('l', 'r'):
-        print('  please enter l, r, or nothing to quit')
+    if choice not in ('L', 'R'):
+        print('  please enter L, R, or nothing to quit')
         continue
 
-    chosen_arm = 0 if choice == 'l' else 1
+    chosen_arm = 0 if choice == 'L' else 1
     reward, next_state = pull(state, chosen_arm)
 
     round_number += 1

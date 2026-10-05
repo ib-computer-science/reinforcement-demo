@@ -63,7 +63,7 @@ python3 q_learn_bandit.py
 ## play_bandit.py
 
 Lets a human play the same environment from `bandit_env.py` interactively:
-type `l` or `r` to pull an arm, and it reports `win!` or `no win`. Like the
+type `L` or `R` to pull an arm, and it reports `win!` or `no win`. Like the
 Q-learning agent, you aren't shown the current state or the win
 probabilities, during play or after — only your total and average reward
 once you quit (empty input) — so you have to find a good strategy by trial

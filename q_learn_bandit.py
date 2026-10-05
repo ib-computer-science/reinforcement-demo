@@ -46,9 +46,9 @@ for step in range(num_steps):
 
     # --- redraw the current greedy policy on a single line, updated in place: state 0 means the
     #     last arm pulled was left (or the game just started), state 1 means it was right ---
-    greedy_after_left = 'l' if Q[0][0] >= Q[0][1] else 'r'
-    greedy_after_right = 'l' if Q[1][0] >= Q[1][1] else 'r'
-    print(f'\rstep {step + 1:>6} | pull {greedy_after_left} after l, pull {greedy_after_right} after r', end='', flush=True)
+    greedy_after_left = 'L' if Q[0][0] >= Q[0][1] else 'R'
+    greedy_after_right = 'L' if Q[1][0] >= Q[1][1] else 'R'
+    print(f'\rstep {step + 1:>6} | pull {greedy_after_left} after L, pull {greedy_after_right} after R', end='', flush=True)
     time.sleep(print_pause)
 
 print()   # move to a new line once the loop finishes
