@@ -5,6 +5,8 @@ from bandit_env import pull
 epsilon = 0.1
 num_steps = 50000
 gamma = 0.9
+alpha0 = 0.05           # starting learning rate for each (state, arm) pair
+decay_steps = 1000      # learning rate roughly halves every this many visits to a pair
 bin_size = 500          # steps per data point within a run
 num_runs = 500          # independent runs averaged together to smooth out per-bin sampling noise
 
@@ -36,7 +38,7 @@ for run in range(num_runs):
         reward, next_state = pull(state, chosen_arm)
 
         times_chosen[state][chosen_arm] += 1
-        learning_rate = 1 / times_chosen[state][chosen_arm]
+        learning_rate = alpha0 * decay_steps / (decay_steps + times_chosen[state][chosen_arm])
         td_target = reward + gamma * max(Q[next_state])
         prediction_error = td_target - Q[state][chosen_arm]
         Q[state][chosen_arm] += learning_rate * prediction_error
