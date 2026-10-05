@@ -17,11 +17,14 @@ real[] p_prev_r = data[2];
 real[] xref = {step[0], step[step.length - 1]};
 real[] yref95 = {0.95, 0.95};
 real[] yref05 = {0.05, 0.05};
-draw(graph(xref, yref95), gray + dashed);
-draw(graph(xref, yref05), gray + dashed);
+draw(graph(xref, yref95), gray + dotted);
+draw(graph(xref, yref05), gray + dotted);
 
-draw(graph(step, p_prev_l), blue + linewidth(1.2), "$P(\mathrm{pull\ R} \mid \mathrm{prev}=\mathrm{L})$");
-draw(graph(step, p_prev_r), red + linewidth(1.2), "$P(\mathrm{pull\ R} \mid \mathrm{prev}=\mathrm{R})$");
+// Red is drawn noticeably thicker than blue (a dashed stroke on this noisy, jittery
+// data just looked like a broken mess) so the two curves stay distinguishable
+// without relying on color, e.g. in black-and-white print.
+draw(graph(step, p_prev_l), blue + linewidth(0.8), "$P(\mathrm{pull\ R} \mid \mathrm{prev}=\mathrm{L})$");
+draw(graph(step, p_prev_r), red + linewidth(2.2), "$P(\mathrm{pull\ R} \mid \mathrm{prev}=\mathrm{R})$");
 
 ylimits(0, 1);
 
