@@ -48,7 +48,7 @@ for step in range(num_steps):
     #     last arm pulled was left (or the game just started), state 1 means it was right ---
     greedy_after_left = 'l' if Q[0][0] >= Q[0][1] else 'r'
     greedy_after_right = 'l' if Q[1][0] >= Q[1][1] else 'r'
-    print(f'\rstep {step + 1:>6} | select {greedy_after_left} after left, select {greedy_after_right} after right', end='', flush=True)
+    print(f'\rstep {step + 1:>6} | pull {greedy_after_left} after l, pull {greedy_after_right} after r', end='', flush=True)
     time.sleep(print_pause)
 
 print()   # move to a new line once the loop finishes
