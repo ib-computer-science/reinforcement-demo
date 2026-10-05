@@ -4,8 +4,8 @@ import time
 from bandit_env import pull
 
 epsilon = 0.1                # probability of exploring instead of exploiting
-num_steps = 1000
-print_pause = 0.01           # seconds to pause after each print, so a human can watch it update
+num_steps = 4000
+print_pause = 0.002          # seconds to pause after each print, so a human can watch it update
 gamma = 0.9                  # discount factor: how much future reward matters now
 alpha0 = 0.05                # starting learning rate for each (state, arm) pair
 decay_steps = 1000           # learning rate roughly halves every this many visits to a pair
